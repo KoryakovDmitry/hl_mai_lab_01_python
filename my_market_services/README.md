@@ -21,3 +21,9 @@ uvicorn my_market_services.src.main:app --reload
 You can use FastAPI's automatic interactive API documentation by navigating to:
 
 http://localhost:8000/docs
+
+### Test
+
+```bash
+python -m unittest -v my_market_service/tests/my_service_test.py
+```
