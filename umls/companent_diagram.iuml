@@ -4,7 +4,6 @@
 AddElementTag("microService", $shape=EightSidedShape(), $bgColor="CornflowerBlue", $fontColor="white", $legendText="microservice")
 AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $fontColor="white")
 
-Person(admin, "Администратор")
 Person(user, "Пользователь")
 
 System_Ext(web_site, "Клиентский веб-сайт", "Python, Streamlit", "Веб-интерфейс")
@@ -17,8 +16,7 @@ System_Boundary(service_order_site, "Сайт заказа услуг") {
 
 }
 
-Rel(admin, web_site, "Просмотр, добавление и редактирование информации о пользователях, услугах и заказах")
-Rel(user, web_site, "Регистрация, просмотр информации о услугах и заказах и создание заказов")
+Rel(user, web_site, "Просмотр информации о пользователях, услугах и заказах. Регистрация, просмотр информации о услугах и заказах и создание заказов и услуг, добавление услуг в заказы.")
 
 Rel(web_site, user_service, "Работа с пользователями", "localhost/user")
 Rel(user_service, db, "INSERT/SELECT/UPDATE", "SQL")
