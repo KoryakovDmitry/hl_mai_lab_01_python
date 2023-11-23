@@ -4,40 +4,9 @@
 # Компонентная архитектура
 ## Компонентная диаграмма
 
-```plantuml
-@startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-AddElementTag("microService", $shape=EightSidedShape(), $bgColor="CornflowerBlue", $fontColor="white", $legendText="microservice")
-AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $fontColor="white")
+![companent_diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/KoryakovDmitry/hl_mai_lab_01_python/main/umls/companent_diagram.iuml)
 
-Person(admin, "Администратор")
-Person(user, "Пользователь")
-
-System_Ext(web_site, "Клиентский веб-сайт", "HTML, CSS, JavaScript, React", "Веб-интерфейс")
-
-System_Boundary(service_order_site, "Сайт заказа услуг") {
-   Container(user_service, "Сервис пользователей", "Python", "Сервис управления пользователями", $tags = "microService")    
-   Container(service_service, "Сервис услуг", "Python", "Сервис управления услугами", $tags = "microService") 
-   Container(order_service, "Сервис заказов", "Python", "Сервис управления заказами", $tags = "microService")   
-   ContainerDb(db, "База данных", "MySQL", "Хранение данных о пользователях, услугах и заказах", $tags = "storage")
-   
-}
-
-Rel(admin, web_site, "Просмотр, добавление и редактирование информации о пользователях, услугах и заказах")
-Rel(user, web_site, "Регистрация, просмотр информации о услугах и заказах и создание заказов")
-
-Rel(web_site, user_service, "Работа с пользователями", "localhost/user")
-Rel(user_service, db, "INSERT/SELECT/UPDATE", "SQL")
-
-Rel(web_site, service_service, "Работа с услугами", "localhost/service")
-Rel(service_service, db, "INSERT/SELECT/UPDATE", "SQL")
-
-Rel(web_site, order_service, "Работа с заказами", "localhost/order")
-Rel(order_service, db, "INSERT/SELECT/UPDATE", "SQL")
-
-@enduml
-```
 ## Список компонентов  
 
 ### Сервис пользователей
@@ -71,53 +40,13 @@ Rel(order_service, db, "INSERT/SELECT/UPDATE", "SQL")
   - Выходные параметры: массив с заказами (идентификатор, пользователь, список услуг, дата создания)
 
 ### Модель данных
-```plantuml
-@startuml
+![model_data](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/KoryakovDmitry/hl_mai_lab_01_python/main/umls/model_data.iuml)
 
-class User {
-  id
-  login
-  first_name
-  last_name
-  email
-}
-
-class Service {
-  id
-  name
-  description
-  cost
-}
-
-class Order {
-  id
-  user_id
-  service_id
-  date
-}
-
-User <- Order
-Service <- Order
-
-@enduml
-```
 
 
 # Контекст решения
-```plantuml
-@startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+![context_solution](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/KoryakovDmitry/hl_mai_lab_01_python/main/umls/context_solution.iuml)
 
-Person(admin, "Администратор")
-Person(user, "Пользователь")
-
-System(service_order_site, "Сайт заказа услуг", "Веб-сайт для заказа услуг")
-
-Rel(admin, service_order_site, "Просмотр, добавление и редактирование информации о пользователях, услугах и заказах")
-Rel(user, service_order_site, "Регистрация, просмотр/изменение информации о услугах и заказах")
-
-@enduml
-```
 ## Назначение систем
 |Система| Описание|
 |-------|---------|

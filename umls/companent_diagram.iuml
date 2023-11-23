@@ -13,7 +13,7 @@ System_Boundary(service_order_site, "Сайт заказа услуг") {
    Container(user_service, "Сервис пользователей", "Python", "Сервис управления пользователями", $tags = "microService")
    Container(service_service, "Сервис услуг", "Python", "Сервис управления услугами", $tags = "microService")
    Container(order_service, "Сервис заказов", "Python", "Сервис управления заказами", $tags = "microService")
-   ContainerDb(db, "База данных", "MySQL", "Хранение данных о пользователях, услугах и заказах", $tags = "storage")
+   ContainerDb(db, "База данных", "MariaDB", "Хранение данных о пользователях, услугах и заказах", $tags = "storage")
 
 }
 
