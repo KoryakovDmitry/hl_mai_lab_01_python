@@ -1,0 +1,12 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(admin, "Администратор")
+Person(user, "Пользователь")
+
+System(service_order_site, "Сайт заказа услуг", "Веб-сайт для заказа услуг")
+
+Rel(admin, service_order_site, "Просмотр, добавление и редактирование информации о пользователях, услугах и заказах")
+Rel(user, service_order_site, "Регистрация, просмотр/изменение информации о услугах и заказах")
+
+@enduml

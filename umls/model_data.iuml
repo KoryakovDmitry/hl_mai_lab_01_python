@@ -1,0 +1,28 @@
+@startuml
+
+class User {
+  id
+  login
+  first_name
+  last_name
+  email
+}
+
+class Service {
+  id
+  name
+  description
+  cost
+}
+
+class Order {
+  id
+  user_id
+  service_id
+  date
+}
+
+User <- Order
+Service <- Order
+
+@enduml
