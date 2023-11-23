@@ -7,7 +7,7 @@ AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $fon
 Person(admin, "Администратор")
 Person(user, "Пользователь")
 
-System_Ext(web_site, "Клиентский веб-сайт", "HTML, CSS, JavaScript, React", "Веб-интерфейс")
+System_Ext(web_site, "Клиентский веб-сайт", "Python, Streamlit", "Веб-интерфейс")
 
 System_Boundary(service_order_site, "Сайт заказа услуг") {
    Container(user_service, "Сервис пользователей", "Python", "Сервис управления пользователями", $tags = "microService")
