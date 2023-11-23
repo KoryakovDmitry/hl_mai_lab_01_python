@@ -8,9 +8,7 @@ Person(user, "Пользователь")
 
 System_Boundary(service_order_site, "Сайт заказа услуг") {
    Container(web_site, "Сервис веб-сайт, web-application", "Python, Streamlit", "Веб-интерфейс", $tags = "microService)
-   Container(user_service, "Сервис пользователей", "Python, FastAPI", "Сервис управления пользователями", $tags = "microService")
-   Container(service_service, "Сервис услуг", "Python, FastAPI", "Сервис управления услугами", $tags = "microService")
-   Container(order_service, "Сервис заказов", "Python, FastAPI", "Сервис управления заказами", $tags = "microService")
+   Container(user_service_order_service, "Сервис пользователей, услуг, заказов", "Python, FastAPI", "Сервис управления пользователями, услугами, заказами", $tags = "microService")
    ContainerDb(db, "База данных", "MariaDB, mySQL", "Хранение данных о пользователях, услугах и заказах", $tags = "storage")
 
 }
