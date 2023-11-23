@@ -10,7 +10,6 @@ System_Boundary(service_order_site, "Сайт заказа услуг") {
    Container(web_site, "Сервис веб-сайт, web-application", "Python, Streamlit", "Web-Application", $tags = "microService")
    Container(user_service_order_service, "Сервис пользователей, услуг, заказов", "Python, FastAPI", "Сервис управления пользователями, услугами, заказами", $tags = "microService")
    ContainerDb(db, "База данных", "MariaDB, mySQL", "Хранение данных о пользователях, услугах и заказах", $tags = "storage")
-
 }
 
 Rel(user, web_site, "Просмотр информации о пользователях, услугах и заказах. Регистрация, просмотр информации о услугах и заказах и создание заказов и услуг, добавление услуг в заказы.")
