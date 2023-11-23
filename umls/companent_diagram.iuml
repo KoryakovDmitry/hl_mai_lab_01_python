@@ -15,13 +15,7 @@ System_Boundary(service_order_site, "Сайт заказа услуг") {
 
 Rel(user, web_site, "Просмотр информации о пользователях, услугах и заказах. Регистрация, просмотр информации о услугах и заказах и создание заказов и услуг, добавление услуг в заказы.")
 
-Rel(web_site, user_service, "Работа с пользователями", "localhost/user")
-Rel(user_service, db, "INSERT/SELECT", "SQL")
-
-Rel(web_site, service_service, "Работа с услугами", "localhost/service")
-Rel(service_service, db, "INSERT/SELECT", "SQL")
-
-Rel(web_site, order_service, "Работа с заказами", "localhost/order")
-Rel(order_service, db, "INSERT/SELECT", "SQL")
+Rel(web_site, user_service_order_service, "Работа с услугами, пользователями, заказами", "localhost/user")
+Rel(user_service_order_service, db, "INSERT/SELECT", "SQL")
 
 @enduml
