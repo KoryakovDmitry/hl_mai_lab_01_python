@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS User (
     id INT NOT NULL AUTO_INCREMENT,
     login VARCHAR(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    password VARCHAR(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     first_name VARCHAR(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     last_name VARCHAR(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     email VARCHAR(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -27,14 +26,14 @@ CREATE TABLE IF NOT EXISTS `Order` (
 );
 
 
-INSERT INTO User (login, password, first_name, last_name, email)
-VALUES ('john123', 'password123', 'John', 'Doe', 'john@example.com');
+INSERT INTO User (login, first_name, last_name, email)
+VALUES ('john123',  'John', 'Doe', 'john@example.com');
 
-INSERT INTO User (login, password, first_name, last_name, email)
-VALUES ('jane567', 'password567', 'Jane', 'Smith', 'jane@example.com');
+INSERT INTO User (login, first_name, last_name, email)
+VALUES ('jane567', 'Jane', 'Smith', 'jane@example.com');
 
-INSERT INTO User (login, password, first_name, last_name, email)
-VALUES ('mike789', 'password789', 'Mike', 'Johnson', 'mike@example.com');
+INSERT INTO User (login, first_name, last_name, email)
+VALUES ('mike789', 'Mike', 'Johnson', 'mike@example.com');
 
 INSERT INTO Service (name, description, cost)
 VALUES ('Web Development', 'Professional website development services', 250.00);
