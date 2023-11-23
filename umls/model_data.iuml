@@ -21,8 +21,6 @@ class Order {
     PRIMARY_KEY(id : Integer)
     FOREIGN_KEY(user_id : Integer)
     date_created : DateTime
-    .. Relationships ..
-    services : Service[]
 }
 
 class order_service {
@@ -31,8 +29,9 @@ class order_service {
 }
 
 User "1" -- "0..*" Order : has >
-Order "0..*" -- "0..*" Service : uses >
-order_service "0..1" -- "0..1" Order : < contains
-order_service "0..1" -- "0..1" Service : < contains
+Order "0..*" -- "0..*" order_service : uses >
+Service "0..*" -- "0..*" order_service : offers >
+order_service -- Order
+order_service -- Service
 
 @enduml
