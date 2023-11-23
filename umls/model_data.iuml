@@ -2,7 +2,7 @@
 !define PRIMARY_KEY(x) <u>x</u>
 !define FOREIGN_KEY(x) #x
 
-class User {
+class users {
     PRIMARY_KEY(id : Integer)
     login : String(256)
     first_name : String(256)
@@ -10,14 +10,14 @@ class User {
     email : String(256)
 }
 
-class Service {
+class services {
     PRIMARY_KEY(id : Integer)
     name : String(256)
     description : TEXT
     cost : DECIMAL(10, 2)
 }
 
-class Order {
+class orders {
     PRIMARY_KEY(id : Integer)
     FOREIGN_KEY(user_id : Integer)
     date_created : DateTime
@@ -28,10 +28,10 @@ class order_service {
     FOREIGN_KEY(service_id : Integer)
 }
 
-User "1" -- "0..*" Order : has >
-Order "0..*" -- "0..*" order_service : uses >
-Service "0..*" -- "0..*" order_service : offers >
-order_service -- Order
-order_service -- Service
+users "1" -- "0..*" Order : has >
+orders "0..*" -- "0..*" order_service : uses >
+services "0..*" -- "0..*" order_service : offers >
+order_service -- orders
+order_service -- services
 
 @enduml
