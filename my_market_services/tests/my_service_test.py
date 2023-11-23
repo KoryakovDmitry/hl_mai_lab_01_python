@@ -5,19 +5,7 @@ import unittest
 class TestFastAPIEndpoints(unittest.TestCase):
     BASE_URL = "http://localhost:8000"
 
-    def test_create_user(self):
-        url = f"{self.BASE_URL}/users/"
-        data = {
-            "login": "john123",
-            "first_name": "John",
-            "last_name": "Doe",
-            "email": "john@example.com",
-        }
-        response = requests.post(url, json=data)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("john123", response.json()["login"])
-
-    def test_create_users(self):
+    def test_1_create_users(self):
         user_data = [
             {
                 "login": "john123",
@@ -44,20 +32,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn(user["login"], response.json()["login"])
 
-    def test_read_user(self):
-        login = "john123"
-        url = f"{self.BASE_URL}/users/{login}"
-        response = requests.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["login"], login)
-
-    def test_search_users(self):
-        url = f"{self.BASE_URL}/users/search/?first_name=J*&last_name=*o*"
-        response = requests.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(isinstance(response.json(), list))
-
-    def test_create_services(self):
+    def test_2_create_services(self):
         service_data = [
             {
                 "name": "Web Development",
@@ -81,13 +56,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn(service["name"], response.json()["name"])
 
-    def test_get_services(self):
-        url = f"{self.BASE_URL}/services/"
-        response = requests.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(isinstance(response.json(), list))
-
-    def test_create_orders(self):
+    def test_3_create_orders(self):
         order_data = [
             {"user_id": 1, "service_ids": [1], "date_created": "2023-10-10"},
             {"user_id": 2, "service_ids": [2], "date_created": "2023-11-15"},
@@ -99,14 +68,33 @@ class TestFastAPIEndpoints(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(order["user_id"], response.json()["user_id"])
 
-    def test_get_user_orders(self):
+    def test_4_read_user(self):
+        login = "john123"
+        url = f"{self.BASE_URL}/users/{login}"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["login"], login)
+
+    def test_5_search_users(self):
+        url = f"{self.BASE_URL}/users/search/?first_name=J*&last_name=*o*"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json(), list))
+
+    def test_6_get_services(self):
+        url = f"{self.BASE_URL}/services/"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json(), list))
+
+    def test_7_get_user_orders(self):
         user_id = 1
         url = f"{self.BASE_URL}/orders/{user_id}"
         response = requests.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json(), list))
 
-    def test_add_service_to_order(self):
+    def test_8_add_service_to_order(self):
         order_id = 1
         url = f"{self.BASE_URL}/orders/{order_id}/add_service"
         service_data = {"service_id": 2}
