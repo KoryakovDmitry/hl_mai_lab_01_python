@@ -28,7 +28,7 @@ class order_service {
     FOREIGN_KEY(service_id : Integer)
 }
 
-users "1" -- "0..*" Order : has >
+users "1" -- "0..*" orders : has >
 orders "0..*" -- "0..*" order_service : uses >
 services "0..*" -- "0..*" order_service : offers >
 order_service -- orders
