@@ -1,28 +1,34 @@
 @startuml
 
 class User {
-  id
-  login
-  first_name
-  last_name
-  email
+    + Integer id
+    + String login
+    + String first_name
+    + String last_name
+    + String email
 }
 
 class Service {
-  id
-  name
-  description
-  cost
+    + Integer id
+    + String name
+    + TEXT description
+    + DECIMAL(10, 2) cost
 }
 
 class Order {
-  id
-  user_id
-  service_id
-  date
+    + Integer id
+    + Integer user_id
+    + DateTime date_created
 }
 
-User <- Order
-Service <- Order
+class order_service {
+    + Integer order_id
+    + Integer service_id
+}
+
+User "1" -- "0..*" Order : has >
+Order "0..*" -- "0..*" Service : includes >
+order_service "0..*" -down- "0..1" Order : links >
+order_service "0..*" -right- "0..1" Service : links >
 
 @enduml
