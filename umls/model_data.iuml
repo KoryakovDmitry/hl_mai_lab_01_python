@@ -1,34 +1,38 @@
 @startuml
+!define PRIMARY_KEY(x) <u>x</u>
+!define FOREIGN_KEY(x) #x
 
 class User {
-    + Integer id
-    + String login
-    + String first_name
-    + String last_name
-    + String email
+    PRIMARY_KEY(id : Integer)
+    login : String(256)
+    first_name : String(256)
+    last_name : String(256)
+    email : String(256)
 }
 
 class Service {
-    + Integer id
-    + String name
-    + TEXT description
-    + DECIMAL(10, 2) cost
+    PRIMARY_KEY(id : Integer)
+    name : String(256)
+    description : TEXT
+    cost : DECIMAL(10, 2)
 }
 
 class Order {
-    + Integer id
-    + Integer user_id
-    + DateTime date_created
+    PRIMARY_KEY(id : Integer)
+    FOREIGN_KEY(user_id : Integer)
+    date_created : DateTime
+    .. Relationships ..
+    services : Service[]
 }
 
 class order_service {
-    + Integer order_id
-    + Integer service_id
+    FOREIGN_KEY(order_id : Integer)
+    FOREIGN_KEY(service_id : Integer)
 }
 
 User "1" -- "0..*" Order : has >
-Order "0..*" -- "0..*" Service : includes >
-order_service "0..*" -down- "0..1" Order : links >
-order_service "0..*" -right- "0..1" Service : links >
+Order "0..*" -- "0..*" Service : uses >
+order_service "0..1" -- "0..1" Order : < contains
+order_service "0..1" -- "0..1" Service : < contains
 
 @enduml
