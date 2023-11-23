@@ -28,7 +28,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
             {
                 "login": "jane567",
                 "first_name": "Jane",
-                "last_name": "Smith",
+                "last_name": "Lopes",
                 "email": "jane@example.com",
             },
             {
@@ -43,6 +43,19 @@ class TestFastAPIEndpoints(unittest.TestCase):
             response = requests.post(f"{self.BASE_URL}/users/", json=user)
             self.assertEqual(response.status_code, 200)
             self.assertIn(user["login"], response.json()["login"])
+
+    def test_read_user(self):
+        login = "john123"
+        url = f"{self.BASE_URL}/users/{login}"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["login"], login)
+
+    def test_search_users(self):
+        url = f"{self.BASE_URL}/users/search/?first_name=J*&last_name=*o*"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json(), list))
 
     def test_create_services(self):
         service_data = [
@@ -68,6 +81,12 @@ class TestFastAPIEndpoints(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn(service["name"], response.json()["name"])
 
+    def test_get_services(self):
+        url = f"{self.BASE_URL}/services/"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json(), list))
+
     def test_create_orders(self):
         order_data = [
             {"user_id": 1, "service_ids": [1], "date_created": "2023-10-10"},
@@ -79,6 +98,24 @@ class TestFastAPIEndpoints(unittest.TestCase):
             response = requests.post(f"{self.BASE_URL}/orders/", json=order)
             self.assertEqual(response.status_code, 200)
             self.assertEqual(order["user_id"], response.json()["user_id"])
+
+    def test_get_user_orders(self):
+        user_id = 1
+        url = f"{self.BASE_URL}/orders/{user_id}"
+        response = requests.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.json(), list))
+
+    def test_add_service_to_order(self):
+        order_id = 1
+        url = f"{self.BASE_URL}/orders/{order_id}/add_service"
+        service_data = {"service_id": 2}
+        response = requests.post(url, json=service_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            service_data["service_id"],
+            [service["id"] for service in response.json()["services"]],
+        )
 
 
 if __name__ == "__main__":
