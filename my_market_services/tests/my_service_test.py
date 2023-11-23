@@ -58,9 +58,9 @@ class TestFastAPIEndpoints(unittest.TestCase):
 
     def test_3_create_orders(self):
         order_data = [
-            {"user_id": 1, "service_ids": [1], "date_created": "2023-10-10"},
-            {"user_id": 2, "service_ids": [2], "date_created": "2023-11-15"},
-            {"user_id": 3, "service_ids": [3], "date_created": "2023-09-20"},
+            {"user_id": 1, "date_created": "2023-10-10"},
+            {"user_id": 2, "date_created": "2023-11-15"},
+            {"user_id": 3, "date_created": "2023-09-20"},
         ]
 
         for order in order_data:
