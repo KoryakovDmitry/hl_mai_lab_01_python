@@ -46,7 +46,6 @@
 ![model_data](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/KoryakovDmitry/hl_mai_lab_01_python/main/umls/model_data.iuml)
 
 
-
 # Контекст решения
 ![context_solution](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/KoryakovDmitry/hl_mai_lab_01_python/main/umls/context_solution.iuml)
 
