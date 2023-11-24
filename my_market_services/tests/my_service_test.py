@@ -1,10 +1,12 @@
 # import os
 import unittest
-
+import logging
 import requests
 
 # from dotenv import load_dotenv
 # from sqlalchemy import create_engine, inspect, text
+
+logging.basicConfig(level=logging.INFO)
 
 
 class TestFastAPIEndpoints(unittest.TestCase):
@@ -52,6 +54,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
 
         for user in user_data:
             response = requests.post(f"{self.BASE_URL}/users/users/", json=user)
+            logging.info(f"Creating user {user['login']}: status {response.status_code}, response {response.json()}")
             self.assertEqual(response.status_code, 200)
             self.assertIn(user["login"], response.json()["login"])
 
@@ -78,6 +81,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
             response = requests.post(
                 f"{self.BASE_URL}/services/services/", json=service
             )
+            logging.info(f"Creating service {service['name']}: status {response.status_code}, response {response.json()}")
             self.assertEqual(response.status_code, 200)
             self.assertIn(service["name"], response.json()["name"])
 
@@ -96,6 +100,8 @@ class TestFastAPIEndpoints(unittest.TestCase):
 
         for order in order_data:
             response = requests.post(f"{self.BASE_URL}/orders/orders/", json=order)
+            logging.info(f"Creating order for user_id {order['user_id']}: status {response.status_code}, response {response.json()}")
+
             self.assertEqual(response.status_code, 200)
             self.assertEqual(order["user_id"], response.json()["user_id"])
             # Verify if the correct number of services are associated with the order
@@ -107,6 +113,8 @@ class TestFastAPIEndpoints(unittest.TestCase):
         login = "john123"
         url = f"{self.BASE_URL}/users/users/{login}"
         response = requests.get(url)
+        logging.info(f"Reading user {login}: status {response.status_code}, response {response.json()}")
+
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["login"], login)
 
@@ -117,12 +125,16 @@ class TestFastAPIEndpoints(unittest.TestCase):
             "last_name": ".*o.*",  # Regex pattern for last names containing 'o'
         }
         response = requests.post(url, json=data)
+        logging.info(f"Searching users: status {response.status_code}, response {response.json()}")
+
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json(), list))
 
     def test_6_get_services(self):
         url = f"{self.BASE_URL}/services/services/"
         response = requests.get(url)
+        logging.info(f"Getting services: status {response.status_code}, response {response.json()}")
+
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json(), list))
 
@@ -137,10 +149,14 @@ class TestFastAPIEndpoints(unittest.TestCase):
 
         # Make the request to add services
         response = requests.post(url, json=service_data)
+        logging.info(f"Adding services to order {order_id}: status {response.status_code}, response {response.json()}")
+
         self.assertEqual(response.status_code, 200)
 
         # Fetch the updated order to verify the added services
         order_response = requests.get(f"{self.BASE_URL}/orders/orders/{order_id}")
+        logging.info(f"Getting order {order_id} after adding services: status {order_response.status_code}, response {order_response.json()}")
+
         self.assertEqual(order_response.status_code, 200)
         order_services = [
             service["id"] for service in order_response.json()[0]["services"]
@@ -154,6 +170,8 @@ class TestFastAPIEndpoints(unittest.TestCase):
         user_id = 1
         url = f"{self.BASE_URL}/orders/orders/{user_id}"
         response = requests.get(url)
+        logging.info(f"Getting orders for user_id {user_id}: status {response.status_code}, response {response.json()}")
+
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.json(), list))
 
