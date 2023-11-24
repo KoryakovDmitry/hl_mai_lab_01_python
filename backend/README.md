@@ -1,10 +1,18 @@
 # my_market_service
 
-### Create .env file
+### Create .env file in 
 
-and set "SQLALCHEMY_DATABASE_URL"
+```
+#DB_HOST=mai-db-node-ex01
+DB_HOST=localhost
+#DB_PORT=3306
+DB_PORT=3360
+DB_USER=stud
+DB_PASSWORD=stud
+DB_DATABASE=archdb
+```
 
-### Run this service via terminal and venv:
+### Run this service via terminal and venv in dev mode:
 
 ```bash
 python -m venv venv
@@ -22,8 +30,9 @@ You can use FastAPI's automatic interactive API documentation by navigating to:
 
 http://localhost:8000/docs
 
-### Test
+### Tests
 
 ```bash
-python -m unittest -v my_market_service/tests/init_service_test.py
+python -m unittest -v backend/tests/init_service_test.py
+python -m unittest -v backend/tests/get_service_test.py
 ```
