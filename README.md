@@ -1,6 +1,9 @@
 # hl_mai_lab_01_python
 # LAB-01 Variant #4
 
+
+### ```commands.sql``` and ```backend/tests/my_service_test.py``` do the same, and fastAPI create tables by itself so DO NOT run ```backend/tests/my_service_test.py``` AFTER ```commands.sql```. DO it in parallel.
+
 # Компонентная архитектура
 ## Компонентная диаграмма
 
