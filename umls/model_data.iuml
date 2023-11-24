@@ -1,37 +1,36 @@
 @startuml
-!define PRIMARY_KEY(x) <u>x</u>
-!define FOREIGN_KEY(x) #x
 
-class users {
-    PRIMARY_KEY(id : Integer)
-    login : String(256)
-    first_name : String(256)
-    last_name : String(256)
-    email : String(256)
+!define Table(name,desc) class name << (T,orchid) >> { desc }
+!define primary_key(x) <u>x</u>
+!define foreign_key(x) #x
+
+Table(User, "users") {
+    primary_key(id)
+    login : String
+    first_name : String
+    last_name : String
+    email : String
 }
 
-class services {
-    PRIMARY_KEY(id : Integer)
-    name : String(256)
+Table(Service, "services") {
+    primary_key(id)
+    name : String
     description : TEXT
-    cost : DECIMAL(10, 2)
+    cost : DECIMAL
 }
 
-class orders {
-    PRIMARY_KEY(id : Integer)
-    FOREIGN_KEY(user_id : Integer)
+Table(Order, "orders") {
+    primary_key(id)
+    foreign_key(user_id)
     date_created : DateTime
 }
 
-class order_service {
-    FOREIGN_KEY(order_id : Integer)
-    FOREIGN_KEY(service_id : Integer)
+Table(OrderService, "order_service") {
+    foreign_key(order_id)
+    foreign_key(service_id)
 }
 
-users "1" -- "0..*" orders : has >
-orders "0..*" -- "0..*" order_service : uses >
-services "0..*" -- "0..*" order_service : offers >
-order_service -- orders
-order_service -- services
+User "1" -- "0..*" Order
+Order "0..*" -- "0..*" Service : services
 
 @enduml
