@@ -60,3 +60,6 @@ SELECT * FROM users;
 SELECT * FROM orders;
 SELECT * FROM services;
 SELECT * FROM order_service;
+
+DROP DATABASE archdb;
+CREATE DATABASE archdb;
