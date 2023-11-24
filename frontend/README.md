@@ -1,5 +1,12 @@
 # frontend market service
 
+### Create .env file in 
+
+```
+MARKET_SERVICE_HOST=localhost
+MARKET_SERVICE_PORT=8000
+```
+
 ### Run this service via terminal and venv in dev mode:
 
 ```bash
