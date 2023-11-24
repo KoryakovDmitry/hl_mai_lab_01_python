@@ -4,6 +4,13 @@
 
 ### ```commands.sql``` and ```backend/tests/my_service_test.py``` do the same, and fastAPI create tables by itself so DO NOT run ```backend/tests/my_service_test.py``` AFTER ```commands.sql```. DO it in parallel.
 
+## DEPLOY
+
+```bash
+docker-compose build --no-cache
+docker-compose up -d
+```
+
 # Компонентная архитектура
 ## Компонентная диаграмма
 

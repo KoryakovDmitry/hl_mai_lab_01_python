@@ -28,7 +28,7 @@ uvicorn src.main:app --reload
 
 ### See the docs
 
-You can use FastAPI's automatic interactive API documentation by navigating to:
+You can use FastAPI's automatic interactive API documentation, Swagger UI by navigating to:
 
 http://localhost:8000/docs
 
