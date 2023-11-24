@@ -47,4 +47,4 @@ class Order(Base):
     date_created = Column(DateTime, default=datetime.utcnow)
 
     # Establishing the many-to-many relationship with Service
-    services = relationship("Service", secondary=order_service_table)
+    services = relationship("Service", secondary=order_service_table, lazy="subquery")

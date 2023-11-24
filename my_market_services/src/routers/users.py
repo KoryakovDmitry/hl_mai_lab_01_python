@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
 
 from ..database import get_db
@@ -49,11 +49,12 @@ def read_user(login: str, db: Session = Depends(get_db)):
 #     return users
 
 
-@router.get("/users/search/", response_model=list[UserResponse])
+@router.post("/users/search/", response_model=list[UserResponse])
 def search_users(
-    first_name: str = None, last_name: str = None, db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    first_name: str = Body(default=None),
+    last_name: str = Body(default=None),
 ):
-    # This endpoint will search users by regex on first and last name in MySQL
     query = db.query(User)
     if first_name:
         query = query.filter(User.first_name.op("REGEXP")(first_name))

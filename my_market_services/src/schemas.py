@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 
 
@@ -44,26 +44,36 @@ class ServiceResponse(ServiceBase):
 
 
 class OrderServiceAdd(BaseModel):
-    service_id: int
+    service_ids: List[int]  # Changed from service_id to service_ids
 
 
 # Order schemas
 class OrderBase(BaseModel):
     user_id: int
-    service_ids: List[int]
     date_created: datetime
 
 
 class OrderCreate(BaseModel):
     user_id: int
-    service_ids: List[int]
+    service_ids: List[int]  # New field to list service IDs
+
+
+# Assuming you have a schema for Service
+class ServiceInOrder(BaseModel):
+    id: int
+    name: str
+    description: str
+    cost: float
+
+    class Config:
+        orm_mode = True
 
 
 class OrderResponse(BaseModel):
     id: int
     user_id: int
-    service_ids: List[int]
     date_created: datetime
+    services: List[ServiceInOrder]  # New field to include services
 
     class Config:
         orm_mode = True

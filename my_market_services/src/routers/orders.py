@@ -10,15 +10,23 @@ router = APIRouter()
 
 @router.post("/orders/", response_model=OrderResponse)
 def create_order(order_create: OrderCreate, db: Session = Depends(get_db)):
-    # This endpoint will create an order with the given user_id and service_ids
-    new_order = Order(
-        user_id=order_create.user_id,
-        service_ids=order_create.service_ids,
-        date=order_create.date_created,
-    )
+    # Create a new Order instance
+    new_order = Order(user_id=order_create.user_id)
+
+    # Check and add services to the order
+    for service_id in order_create.service_ids:
+        service = db.query(Service).filter(Service.id == service_id).first()
+        if not service:
+            raise HTTPException(
+                status_code=404, detail=f"Service with ID {service_id} not found"
+            )
+        new_order.services.append(service)
+
+    # Add and commit the new order to the database
     db.add(new_order)
     db.commit()
     db.refresh(new_order)
+
     return new_order
 
 
@@ -40,18 +48,28 @@ def add_service_to_order(
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
 
-    # Get the service from the database
-    service = db.query(Service).filter(Service.id == service_data.service_id).first()
-    if not service:
-        raise HTTPException(status_code=404, detail="Service not found")
+    added_services = []
+    for service_id in service_data.service_ids:
+        # Get each service from the database
+        service = db.query(Service).filter(Service.id == service_id).first()
+        if not service:
+            raise HTTPException(
+                status_code=404, detail=f"Service ID {service_id} not found"
+            )
 
-    # Add the service to the order
-    if service not in order.services:
-        order.services.append(service)
+        # Add the service to the order if not already added
+        if service not in order.services:
+            order.services.append(service)
+            added_services.append(service_id)
+
+    # Commit changes if any new services were added
+    if added_services:
         db.commit()
         db.refresh(order)
-        return order
     else:
         raise HTTPException(
-            status_code=400, detail="Service already added to the order"
+            status_code=400,
+            detail="No new services added, all services already exist in the order",
         )
+
+    return order

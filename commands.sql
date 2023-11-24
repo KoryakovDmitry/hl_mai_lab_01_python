@@ -59,3 +59,4 @@ VALUES (1, 1), (2, 2), (3, 3);
 SELECT * FROM users;
 SELECT * FROM orders;
 SELECT * FROM services;
+SELECT * FROM order_service;
