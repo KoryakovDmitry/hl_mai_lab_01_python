@@ -13,7 +13,7 @@ source venv/bin/activate
 
 pip3 install -r requerments.txt
 
-uvicorn my_market_services.src.main:app --reload
+uvicorn backend.src.main:app --reload
 ```
 
 ### See the docs
