@@ -31,6 +31,7 @@ st.set_page_config(
     page_icon="📝",
 )
 
+st.sidebar.title("Service Management")
 
 # Create User
 st.header("Create a New User")
