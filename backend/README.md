@@ -25,5 +25,5 @@ http://localhost:8000/docs
 ### Test
 
 ```bash
-python -m unittest -v my_market_service/tests/my_service_test.py
+python -m unittest -v my_market_service/tests/init_service_test.py
 ```
