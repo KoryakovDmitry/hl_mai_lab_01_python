@@ -11,7 +11,7 @@ python -m venv venv
 
 source venv/bin/activate
 
-pip3 install -r requerments.txt
+pip3 install -r requirements.txt
 
 uvicorn backend.src.main:app --reload
 ```
